@@ -1,7 +1,7 @@
 ​
-const PIEDRA = 0;
-const PAPEL = 1;
-const TIJERAS = 2;
+const PIEDRA = "piedra";
+const PAPEL = "papel";
+const TIJERAS = "tijeras";
 ​
 const EMPATE = 0;
 const GANADOR = 1;
@@ -11,6 +11,8 @@ const piedrabtn = document.getElementById("piedra");
 const papelbtn = document.getElementById("papel");
 const tijerasbtn = document.getElementById("tijeras");
 const resultText = document.getElementById("text");
+const userImg = document.getElementById("user-img");
+const machineImg = document.getElementById("machine-img");
 ​
 ​
 piedrabtn.addEventListener("click",()=>{
@@ -26,8 +28,11 @@ tijerasbtn.addEventListener("click",()=>{
 });
 ​
 function play (userOption){
-    const machineOption = Math.floor(Math.random()*3);
+    const machineOption = calcMachineOption;
     const result = calcResult(userOption, machineOption);
+
+    userImg.src = "/img/"+userOption+".svg"
+    machineImg.src = "/img/"+machineOption+".svg"
 ​
     switch(result){
         case EMPATE:
@@ -41,26 +46,32 @@ function play (userOption){
         case PERDEDOR:
             resultText.innerHTML = "HAZ PERDIDO";
         break;
-​
-​
-​
-​
     }
+}
+
+function calcMachineOption(){
+    Math.floor(Math.random()*3);
+    switch (number) {
+        case 0:
+            return PIEDRA;
+        case 1:
+            return PAPEL;
+        case 2:
+            return TIJERAS;
+    }
+
+}
 ​
 ​
-​
-​
-​
-​
-​
-​
+function calcResult(userOption, machineOption){
+
     if (userOption === machineOption) {
         return EMPATE;
-​
+    ​
     }else if (userOption === PIEDRA) {
         if (machineOption === PAPEL) return PERDEDOR;
         if (machineOption == TIJERAS)  return GANADOR;
-​
+    ​
     }else if (userOption === PAPEL) {
         if (machineOption === TIJERAS)return PERDEDOR;
         if (machineOption === PIEDRA) return GANADOR;
@@ -68,16 +79,6 @@ function play (userOption){
     else if (userOption === TIJERAS) {
         if (machineOption === PIEDRA)return PERDEDOR;
         if (machineOption === PAPEL) return GANADOR;
-    }
-​
-}
-​
-​
-function calcResult(userOption, machineOption){
-    if (userOption === machineOption) {
-    return EMPATE;
-    }else if (userOption === PIEDRA) {
-​
     }
 ​
 }
